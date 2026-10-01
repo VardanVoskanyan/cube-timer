@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cube Timer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main>
+    <header class="topbar">
+      <div class="brand"><span class="logo" aria-hidden="true"></span>Cube Timer</div>
+      <div class="actions">
+        <button id="export" class="ghost">Export</button>
+        <label class="ghost button">Import<input id="import" type="file" accept="application/json,.json" hidden /></label>
+        <button id="clear" class="ghost danger">Clear</button>
+      </div>
+    </header>
+
+    <section class="hero card">
+      <div class="scramble-row">
+        <div id="scramble" class="scramble"></div>
+        <button id="new-scramble" class="icon-btn" title="New scramble" aria-label="New scramble">↻</button>
+      </div>
+      <div class="hero-body">
+        <div class="timer-area">
+          <div id="delta" class="delta" title="Difference from your best time before this solve"></div>
+          <div id="timer" class="timer">0.00</div>
+          <div id="last-info" class="last-info"></div>
+          <div class="hint">Hold <kbd>Space</kbd> until green, release to start · <kbd>Space</kbd> stops · <kbd>Esc</kbd> cancels</div>
+        </div>
+        <div id="net" class="net" title="Scramble applied to a solved cube (white top, green front)"></div>
+      </div>
+    </section>
+
+    <section class="dash">
+      <div class="card times-card">
+        <h2>Times <span id="count" class="count"></span></h2>
+        <div class="table-wrap">
+          <table class="times">
+            <thead><tr><th>#</th><th>Time</th><th title="Average of the 5 solves ending here, without the best and worst">3 of 5</th><th title="Average of the 12 solves ending here, without the best and worst">10 of 12</th><th></th></tr></thead>
+            <tbody id="times-body"></tbody>
+          </table>
+          <p id="times-empty" class="empty">No solves yet — hold Space to start.</p>
+        </div>
+        <p class="note"><b>3 of 5</b> — average of the last 5 solves up to that one, dropping the best and worst. <b>10 of 12</b> — the same over the last 12.</p>
+      </div>
+
+      <div class="card stats-card">
+        <h2>Statistics</h2>
+        <table class="stats">
+          <thead><tr><th></th><th>Latest</th><th>Best</th></tr></thead>
+          <tbody id="stats-body"></tbody>
+        </table>
+        <dl id="session" class="session"></dl>
+        <p class="note"><b>Avg. N</b> — plain average of the last N solves. <b>3 of 5 / 10 of 12</b> — drop the best and worst, average the rest.</p>
+      </div>
+
+      <div class="card graph-card">
+        <div class="graph-head">
+          <h2>Progress</h2>
+          <div class="legend">
+            <span><i class="sw s1"></i>Single</span>
+            <span><i class="sw s2"></i>3 of 5</span>
+            <span><i class="sw s3"></i>10 of 12</span>
+          </div>
+        </div>
+        <div id="graph" class="graph"></div>
+        <p id="graph-empty" class="empty">The graph appears after 2 solves.</p>
+      </div>
+
+      <div class="card hist-card">
+        <div class="graph-head">
+          <h2>Distribution</h2>
+          <label class="toggle" title="Log-spaced time bins: each bin is a fixed percentage wider than the previous one">
+            <input type="checkbox" id="log-scale" /><span class="track"></span>Log scale
+          </label>
+          <div class="legend"><span><i class="sw s1"></i>Latest solve</span></div>
+        </div>
+        <div id="hist" class="graph"></div>
+        <p id="hist-empty" class="empty">The histogram appears after 2 solves.</p>
+        <div class="bins-control">
+          <label for="bins">Bins</label>
+          <input type="range" id="bins" step="1" />
+          <span id="bins-value" class="bins-value"></span>
+          <button id="bins-auto" class="link-btn hidden" title="Choose the number of bins automatically">Auto</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="cube.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
